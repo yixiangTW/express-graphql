@@ -1,14 +1,13 @@
 import { objectType, queryType, mutationType } from 'nexus'
-import data from './data'
 
 const CurrentProject = objectType({
   name: 'CurrentProject',
   definition(t: any) {
     t.string('message'), {
-      resolve: () => data.currentProject.message
+      resolve: (source, args, ctx) => ctx.currentProject.message
     },
     t.int('id', {
-      resolve: () => data.currentProject.id
+      resolve: (source, args, ctx) => ctx.currentProject.id
     })
   }
 })
@@ -17,7 +16,7 @@ const QueryProject = queryType({
   definition(t: any) {
     t.field('currentProject', {
       type: 'CurrentProject',
-      resolve: () => data.currentProject
+      resolve: (source, args, ctx) => ctx.currentProject
     })
   }
 })
@@ -30,14 +29,14 @@ const UpdateProject = mutationType({
         message: 'String',
         id: 'Int'
       },
-      resolve: (_: any, args: any) => {
+      resolve: (source, args, ctx) => {
         if(args.message) {
-          data.currentProject.message = args.message
+          ctx.currentProject.message = args.message
         }
         if(args.id) {
-          data.currentProject.id = args.id
+          ctx.currentProject.id = args.id
         }
-        return data.currentProject
+        return ctx.currentProject
       }
     })
   }
