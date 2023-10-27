@@ -1,0 +1,2 @@
+@urql/core
+@urql/vue

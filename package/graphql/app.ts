@@ -1,9 +1,12 @@
-const express = require('express');
-const { graphqlHTTP } = require('express-graphql');
+import express from 'express';
+import cors from 'cors';
+import { graphqlHTTP } from 'express-graphql';
 import schema from './schema'
 
 import context from './context'
 const app = express();
+
+app.use(cors({ origin: 'http://localhost:5173' }));
 
 // 创建一个 GraphQL 中间件
 app.use(

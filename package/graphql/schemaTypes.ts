@@ -30,13 +30,8 @@ const UpdateProject = mutationType({
         id: 'Int'
       },
       resolve: (source, args, ctx) => {
-        if(args.message) {
-          ctx.currentProject.message = args.message
-        }
-        if(args.id) {
-          ctx.currentProject.id = args.id
-        }
-        return ctx.currentProject
+        const { message, id} = args;
+        return ctx.currentProject.update(id, message)
       }
     })
   }
